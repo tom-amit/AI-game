@@ -29,20 +29,33 @@ namespace soldiers
         /// </summary>
         private void InitializeComponent()
         {
+            this.turnLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            // 
+            // turnLabel
+            // 
+            this.turnLabel.AutoSize = true;
+            this.turnLabel.Location = new System.Drawing.Point(914, 65);
+            this.turnLabel.Name = "turnLabel";
+            this.turnLabel.Size = new System.Drawing.Size(0, 13);
+            this.turnLabel.TabIndex = 0;
             // 
             // GameVisuals
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 961);
+            this.Controls.Add(this.turnLabel);
             this.Name = "GameVisuals";
             this.Text = "Form1";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Label turnLabel;
     }
 }
 
