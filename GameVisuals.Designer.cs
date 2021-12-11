@@ -1,7 +1,7 @@
 ﻿
 namespace soldiers
 {
-    partial class Form1
+    partial class GameVisuals
     {
         /// <summary>
         /// Required designer variable.
@@ -29,10 +29,17 @@ namespace soldiers
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // GameVisuals
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1184, 961);
+            this.Name = "GameVisuals";
             this.Text = "Form1";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
