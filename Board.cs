@@ -10,11 +10,29 @@ namespace soldiers
 {
     class Board
     {
-        BitArray[,] bitBoard;
+        BitArray whitePawns, blackPawns;
         public Board()
         {
-            bitBoard = new BitArray[boardSize, boardSize];
+            whitePawns = new BitArray(boardSize * boardSize, false);
+            blackPawns = new BitArray(boardSize * boardSize, false);
+        }
 
+        public void SetupBoard()
+        {
+            for(int i = 0; i < 8; i++)
+            {
+                whitePawns[8 + i] = true;
+                blackPawns[8*6 + i] = true;
+            }
+        }
+
+        public BitArray GetWhitePawns()
+        {
+            return whitePawns;
+        }
+        public BitArray GetBlackPawns()
+        {
+            return blackPawns;
         }
     }
 }
