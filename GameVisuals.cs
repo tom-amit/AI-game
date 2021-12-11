@@ -31,7 +31,7 @@ namespace soldiers
                         BackColor = ((i+j)%2==0) ? Color.Black:Color.Gray,
                         TabStop = false,
                         Enabled = false,
-                        FlatStyle = FlatStyle.Flat,
+                        FlatStyle = FlatStyle.Flat
                     };
                     tile.FlatAppearance.BorderSize = 0;
                     Controls.Add(tile);
