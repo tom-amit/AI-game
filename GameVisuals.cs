@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace soldiers
+namespace PawnGame
 {
     public partial class GameVisuals : Form
     {

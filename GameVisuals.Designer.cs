@@ -1,5 +1,5 @@
 ﻿
-namespace soldiers
+namespace PawnGame
 {
     partial class GameVisuals
     {

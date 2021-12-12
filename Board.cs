@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
-using static soldiers.Const;
+using static PawnGame.Const;
 
-namespace soldiers
+namespace PawnGame
 {
     class Board
     {
@@ -31,7 +31,8 @@ namespace soldiers
 
         public bool CheckMove(byte src, byte dest)
         {
-            if (pawns[turn][src] && (!pawns[turn][dest] && !pawns[1 - turn][dest]))
+            if (pawns[turn][src] && (!pawns[turn][dest] && !pawns[1 - turn][dest])
+                )
             {
                 return true;
             }
