@@ -31,8 +31,10 @@ namespace PawnGame
 
         public bool CheckMove(byte src, byte dest)
         {
-            if (pawns[turn][src] && (!pawns[turn][dest] && !pawns[1 - turn][dest])
-                )
+            byte diff = (byte)(turn == 0 ? dest - src : src - dest);
+            if (pawns[turn][src] && !pawns[turn][dest]
+                && (((diff == 8 || (src/8 == (turn == 0 ? 1 : 6) && diff == 16)) && !pawns[1 - turn][dest]) ||
+                (pawns[1 - turn][dest] && ((diff == 7 && src%8 != (turn==0?0:7)) || (diff == 9 && src % 8 != (turn == 0 ? 7 : 0))))))
             {
                 return true;
             }
@@ -47,6 +49,7 @@ namespace PawnGame
             }
             pawns[turn][src] = false;
             pawns[turn][dest] = true;
+            pawns[1-turn][dest] = false;
             turn = (byte)(1 - turn);
             return true;
         }

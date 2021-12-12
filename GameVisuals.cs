@@ -59,13 +59,14 @@ namespace PawnGame
             {
                 chosen = true;
                 chosenBtn = b;
+                chosenBtn.FlatAppearance.BorderSize = 2;
             }
             else
             {
                 if(board.Move(Convert.ToByte(chosenBtn.Tag), Convert.ToByte(b.Tag)))
                 {
                     b.Text = chosenBtn.Text;
-                    turnLabel.Text = "Turn: " + b.Text;
+                    turnLabel.Text = "Turn: p" + (board.turn+1).ToString();
                     chosenBtn.Text = "";
                     chosen = false;
                 }
@@ -73,6 +74,7 @@ namespace PawnGame
                 {
                     chosen = false;
                 }
+                chosenBtn.FlatAppearance.BorderSize = 0;
             }
         }
     }
