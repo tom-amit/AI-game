@@ -16,6 +16,7 @@ namespace PawnGame
         Board board;
         bool chosen;
         Button chosenBtn;
+        Button prevPawn;
         public GameVisuals()
         {
             board = new Board();
@@ -29,12 +30,12 @@ namespace PawnGame
         {
             BitArray whitePawns = board.GetWhitePawns(), blackPawns = board.GetBlackPawns();
 
-            Button tile;
+            Button[] tiles = new Button[64];
             for(int i = 0; i < 8; ++i)
             {
                 for (int j = 0; j < 8; ++j)
                 {
-                    tile = new Button()
+                    tiles[i * 8 + j] = new Button()
                     {
                         Size = new Size(tileSize, tileSize),
                         Location = new Point(p.X + tileSize * j, p.Y + tileSize * i),
@@ -46,9 +47,9 @@ namespace PawnGame
                         FlatStyle = FlatStyle.Flat,
 
                     };
-                    tile.Click += new EventHandler(ClickHandler);
-                    tile.FlatAppearance.BorderSize = 0;
-                    Controls.Add(tile);
+                    tiles[i * 8 + j].Click += new EventHandler(ClickHandler);
+                    tiles[i * 8 + j].FlatAppearance.BorderSize = 0;
+                    Controls.Add(tiles[i * 8 + j]);
                 }
             }
         }
@@ -69,6 +70,16 @@ namespace PawnGame
                     turnLabel.Text = "Turn: p" + (board.turn+1).ToString();
                     chosenBtn.Text = "";
                     chosen = false;
+
+                    if (board.didEnPassant)
+                        prevPawn.Text = "";
+
+                    prevPawn = b;
+
+                    if (board.CheckIfMatchEnd())
+                    {
+                        MessageBox.Show("PLAYER " + (board.turn + 1).ToString() + " LOSES");
+                    }
                 }
                 else
                 {
