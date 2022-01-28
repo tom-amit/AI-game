@@ -31,6 +31,7 @@ namespace PawnGame
         {
             this.turnLabel = new System.Windows.Forms.Label();
             this.UndoMove = new System.Windows.Forms.Button();
+            this.isAICheck = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // turnLabel
@@ -51,11 +52,23 @@ namespace PawnGame
             this.UndoMove.UseVisualStyleBackColor = true;
             this.UndoMove.Click += new System.EventHandler(this.UndoMoveVisual);
             // 
+            // isAICheck
+            // 
+            this.isAICheck.AutoSize = true;
+            this.isAICheck.Location = new System.Drawing.Point(942, 226);
+            this.isAICheck.Name = "isAICheck";
+            this.isAICheck.Size = new System.Drawing.Size(36, 17);
+            this.isAICheck.TabIndex = 2;
+            this.isAICheck.Text = "AI";
+            this.isAICheck.UseVisualStyleBackColor = true;
+            this.isAICheck.CheckedChanged += new System.EventHandler(this.isAICheck_CheckedChanged);
+            // 
             // GameVisuals
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 961);
+            this.Controls.Add(this.isAICheck);
             this.Controls.Add(this.UndoMove);
             this.Controls.Add(this.turnLabel);
             this.Name = "GameVisuals";
@@ -69,6 +82,7 @@ namespace PawnGame
 
         private System.Windows.Forms.Label turnLabel;
         private System.Windows.Forms.Button UndoMove;
+        private System.Windows.Forms.CheckBox isAICheck;
     }
 }
 

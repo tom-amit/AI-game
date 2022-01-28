@@ -12,10 +12,13 @@ namespace PawnGame
         {
 
         }
-        public MorrisNode[] CompPlay()
+        public void CompPlay()
         {
-            Move best = BestMove();
-            return new MorrisNode[] { best.src, best.dest, best.ate };
+            Move(BestMove());
+        }
+        public double Evaluate()
+        {
+            return 5;
         }
         public int Elapsed(DateTime start) // how much time elapsed on stopper
         {
@@ -67,11 +70,7 @@ namespace PawnGame
             List<Move> list = GetAllPossibleMoves(playerAB);
             if (depth == 0)
             {
-                if (playerAB == 1)
-                {
-                    // return evaluation for player 0
-                }
-                //return evaluation for player 1
+                return Evaluate();
             }
             if (playerAB == 1) // maximizer player #1
             {

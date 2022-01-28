@@ -13,19 +13,20 @@ namespace PawnGame
 {
     public partial class GameVisuals : Form
     {
-        Board board;
-        bool chosen;
+        BoardAI board;
+        bool chosen, isAI;
         Button chosenBtn;
         //Button prevPawn;
         Button[] tiles;
         public GameVisuals()
         {
             tiles = new Button[64];
-            board = new Board();
+            board = new BoardAI();
             board.SetupBoard();
             InitializeComponent();
             DrawBoard(new Point(100,100), 70);
             chosen = false;
+            isAI = false;
             turnLabel.Text = "Turn: p1";
         }
         private void DrawBoard(Point p, int tileSize)
@@ -100,6 +101,11 @@ namespace PawnGame
         {
             board.UnmakeMove();
             UpdateBoardVisuals();
+        }
+
+        private void isAICheck_CheckedChanged(object sender, EventArgs e)
+        {
+            isAI = ((CheckBox)sender).Checked;
         }
     }
 }
