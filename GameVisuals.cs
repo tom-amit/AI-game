@@ -129,32 +129,17 @@ namespace PawnGame
         private void CompPlay()
         {
             wait(50);
-            if (!inPlacement)
+            if (!inPlacement && ((isAI1 && board.turn == 0) || (isAI2 && board.turn == 1)))
             {
-                if (isAI1 && board.turn == 0)
+                board.CompPlay();
+                turnLabel.Text = "Turn: Player" + (board.turn + 1).ToString();
+                UpdateBoardVisuals();
+                if (board.CheckIfMatchEnd())
                 {
-                    board.CompPlay();
-                    turnLabel.Text = "Turn: p" + (board.turn + 1).ToString();
-                    UpdateBoardVisuals();
-                    if (board.CheckIfMatchEnd())
-                    {
-                        MessageBox.Show("PLAYER " + (board.turn + 1).ToString() + " LOSES");
-                        return;
-                    }
-                    CompPlay();
+                    MessageBox.Show("PLAYER " + (board.turn + 1).ToString() + " LOSES");
+                    return;
                 }
-                else if (isAI2 && board.turn == 1)
-                {
-                    board.CompPlay();
-                    turnLabel.Text = "Turn: p" + (board.turn + 1).ToString();
-                    UpdateBoardVisuals();
-                    if (board.CheckIfMatchEnd())
-                    {
-                        MessageBox.Show("PLAYER " + (board.turn + 1).ToString() + " LOSES");
-                        return;
-                    }
-                    CompPlay();
-                }
+                CompPlay();
             }
         }
 
