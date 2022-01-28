@@ -25,8 +25,8 @@ namespace PawnGame
             pawns[0] = new BitArray(boardSize * boardSize, false);
             pawns[1] = new BitArray(boardSize * boardSize, false);
             count = new byte[2];
-            count[0] = 8;
-            count[1] = 8;
+            count[0] = 0;
+            count[1] = 0;
             moveHistory = new Stack<Move>();
         }
 
@@ -37,6 +37,14 @@ namespace PawnGame
                 pawns[0][8 + i] = true;
                 pawns[1][8*6 + i] = true;
             }
+            count[0] = 8;
+            count[1] = 8;
+        }
+
+        public void SetupAddPiece(byte location, byte player)
+        {
+            pawns[player][location] = true;
+            count[player]++;
         }
 
         public void CreateEnPassantOpportunity(byte location)

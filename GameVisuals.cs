@@ -16,13 +16,16 @@ namespace PawnGame
         BoardAI board;
         bool chosen, isAI;
         Button chosenBtn;
-        //Button prevPawn;
+
+        bool inPlacement;
+        byte placementChoice;
+
         Button[] tiles;
         public GameVisuals()
         {
+            inPlacement = true;
             tiles = new Button[64];
             board = new BoardAI();
-            board.SetupBoard();
             InitializeComponent();
             DrawBoard(new Point(100,100), 70);
             chosen = false;
@@ -31,8 +34,6 @@ namespace PawnGame
         }
         private void DrawBoard(Point p, int tileSize)
         {
-            BitArray whitePawns = board.GetWhitePawns(), blackPawns = board.GetBlackPawns();
-
             for(int i = 0; i < 8; ++i)
             {
                 for (int j = 0; j < 8; ++j)
@@ -43,7 +44,6 @@ namespace PawnGame
                         Location = new Point(p.X + tileSize * j, p.Y + tileSize * i),
                         BackColor = ((i + j) % 2 == 0) ? Color.Black : Color.Gray,
                         TabStop = false,
-                        Text = whitePawns[i * 8 + j] ? "p1" : (blackPawns[i * 8 + j] ? "p2" : ""),
                         Tag = i * 8 + j,
                         ForeColor = Color.White,
                         FlatStyle = FlatStyle.Flat,
@@ -57,11 +57,12 @@ namespace PawnGame
         }
         private void UpdateBoardVisuals()
         {
-            for(int i = 0; i < 64; i++)
+            BitArray whitePawns = board.GetWhitePawns(), blackPawns = board.GetBlackPawns();
+            for (int i = 0; i < 64; i++)
             {
-                if (board.GetWhitePawns()[i]) 
+                if (whitePawns[i]) 
                     tiles[i].Text = "p1";
-                else if (board.GetBlackPawns()[i])
+                else if (blackPawns[i])
                     tiles[i].Text = "p2";
                 else
                     tiles[i].Text = "";
@@ -69,38 +70,46 @@ namespace PawnGame
         }
         private void ClickHandler(object sender, System.EventArgs e)
         {
-            Button b = (Button)sender;
-            if (!chosen)
+            if (inPlacement)
             {
-                chosen = true;
-                chosenBtn = b;
-                chosenBtn.FlatAppearance.BorderSize = 2;
+                board.SetupAddPiece(Convert.ToByte(((Button)sender).Tag), placementChoice);
+                UpdateBoardVisuals();
             }
             else
             {
-                if(board.Move(Convert.ToByte(chosenBtn.Tag), Convert.ToByte(b.Tag)))
+                Button b = (Button)sender;
+                if (!chosen)
                 {
-                    turnLabel.Text = "Turn: p" + (board.turn + 1).ToString();
-                    chosen = false;
-                    UpdateBoardVisuals();
-
-                    if (board.CheckIfMatchEnd())
-                    {
-                        MessageBox.Show("PLAYER " + (board.turn + 1).ToString() + " LOSES");
-                    }
-                    else
-                    {
-                        if (isAI)
-                        {
-                            CompPlay();
-                        }
-                    }
+                    chosen = true;
+                    chosenBtn = b;
+                    chosenBtn.FlatAppearance.BorderSize = 2;
                 }
                 else
                 {
-                    chosen = false;
+                    if (board.Move(Convert.ToByte(chosenBtn.Tag), Convert.ToByte(b.Tag)))
+                    {
+                        turnLabel.Text = "Turn: p" + (board.turn + 1).ToString();
+                        chosen = false;
+                        UpdateBoardVisuals();
+
+                        if (board.CheckIfMatchEnd())
+                        {
+                            MessageBox.Show("PLAYER " + (board.turn + 1).ToString() + " LOSES");
+                        }
+                        else
+                        {
+                            if (isAI)
+                            {
+                                CompPlay();
+                            }
+                        }
+                    }
+                    else
+                    {
+                        chosen = false;
+                    }
+                    chosenBtn.FlatAppearance.BorderSize = 0;
                 }
-                chosenBtn.FlatAppearance.BorderSize = 0;
             }
         }
 
@@ -122,6 +131,39 @@ namespace PawnGame
         {
             board.UnmakeMove();
             UpdateBoardVisuals();
+        }
+
+        private void disablePlacement()
+        {
+            button1.Enabled = false;
+            button2.Enabled = false;
+            button3.Enabled = false;
+            button4.Enabled = false;
+            inPlacement = false;
+        }
+
+        private void button1_Click(object sender, EventArgs e) //standard placement
+        {
+            board.SetupBoard();
+            UpdateBoardVisuals();
+            disablePlacement();
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            placementChoice = 0;
+            label2.Text = "Currently placing white pawns";
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            placementChoice = 1;
+            label2.Text = "Currently placing black pawns";
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            UpdateBoardVisuals();
+            disablePlacement();
         }
 
         private void isAICheck_CheckedChanged(object sender, EventArgs e)
