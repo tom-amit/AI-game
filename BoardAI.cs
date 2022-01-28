@@ -18,7 +18,7 @@ namespace PawnGame
         }
         public double Evaluate()
         {
-            return 5;// rnd.Next(1,100);
+            return count[1] - count[0];// rnd.Next(1,100);
         }
         public int Elapsed(DateTime start) // how much time elapsed on stopper
         {
@@ -88,7 +88,7 @@ namespace PawnGame
                 }
                 return bestVal;
             }
-            else // minimizer player #1
+            else // minimizer player #0
             {
                 bestVal = double.MaxValue;
                 foreach (Move m in list)

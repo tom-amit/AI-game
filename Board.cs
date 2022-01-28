@@ -11,6 +11,8 @@ namespace PawnGame
     class Board
     {
         BitArray[] pawns; //0 - white, 1 - black
+
+        protected byte[] count;
         byte enPassantOpportunityLocation;
         bool enPassantOpportunityExistence;
         public byte turn {get; set;} //0 - white, 1 - black
@@ -22,6 +24,9 @@ namespace PawnGame
             pawns = new BitArray[2];
             pawns[0] = new BitArray(boardSize * boardSize, false);
             pawns[1] = new BitArray(boardSize * boardSize, false);
+            count = new byte[2];
+            count[0] = 8;
+            count[1] = 8;
             moveHistory = new Stack<Move>();
         }
 
@@ -113,21 +118,7 @@ namespace PawnGame
                 return false;
             }
 
-            moveHistory.Push(move);
-
-            pawns[turn][src] = false;
-            pawns[turn][dest] = true;
-
-            if (move.didEat)
-                pawns[1 - turn][move.eatLocation] = false;
-
-            if ((turn == 0 ? dest - src : src - dest) == 16)
-                CreateEnPassantOpportunity((byte)(dest + (turn == 0 ? -8 : 8)));
-            else
-                enPassantOpportunityExistence = false;
-
-            turn = (byte)(1 - turn);
-            return true;
+            return Move(move);
         }
 
         public bool Move(Move move) //Move with a prechecked move
@@ -143,7 +134,10 @@ namespace PawnGame
             pawns[turn][move.dest] = true;
 
             if (move.didEat)
+            {
                 pawns[1 - turn][move.eatLocation] = false;
+                count[1 - turn]--;
+            }
 
             if ((turn == 0 ? move.dest - move.src : move.src - move.dest) == 16)
                 CreateEnPassantOpportunity((byte)(move.dest + (turn == 0 ? -8 : 8)));
@@ -164,7 +158,10 @@ namespace PawnGame
             pawns[1 - turn][move.src] = true;
             pawns[1 - turn][move.dest] = false;
             if (move.didEat)
+            {
                 pawns[turn][move.eatLocation] = true;
+                count[turn]++;
+            }
             enPassantOpportunityExistence = move.wasEnPassantOpportunityExistence;
             enPassantOpportunityLocation = move.wasEnPassantOpportunityLocation;
             turn = (byte)(1 - turn);
