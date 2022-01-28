@@ -38,6 +38,7 @@ namespace PawnGame
             this.button3 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
+            this.isAI2Check = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // turnLabel
@@ -61,11 +62,11 @@ namespace PawnGame
             // isAICheck
             // 
             this.isAICheck.AutoSize = true;
-            this.isAICheck.Location = new System.Drawing.Point(942, 273);
+            this.isAICheck.Location = new System.Drawing.Point(956, 273);
             this.isAICheck.Name = "isAICheck";
-            this.isAICheck.Size = new System.Drawing.Size(36, 17);
+            this.isAICheck.Size = new System.Drawing.Size(51, 17);
             this.isAICheck.TabIndex = 2;
-            this.isAICheck.Text = "AI";
+            this.isAICheck.Text = "AI p1";
             this.isAICheck.UseVisualStyleBackColor = true;
             this.isAICheck.CheckedChanged += new System.EventHandler(this.isAICheck_CheckedChanged);
             // 
@@ -111,7 +112,7 @@ namespace PawnGame
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(959, 170);
+            this.label2.Location = new System.Drawing.Point(949, 170);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(0, 13);
             this.label2.TabIndex = 7;
@@ -126,11 +127,23 @@ namespace PawnGame
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // isAI2Check
+            // 
+            this.isAI2Check.AutoSize = true;
+            this.isAI2Check.Location = new System.Drawing.Point(1022, 273);
+            this.isAI2Check.Name = "isAI2Check";
+            this.isAI2Check.Size = new System.Drawing.Size(51, 17);
+            this.isAI2Check.TabIndex = 9;
+            this.isAI2Check.Text = "AI p2";
+            this.isAI2Check.UseVisualStyleBackColor = true;
+            this.isAI2Check.CheckedChanged += new System.EventHandler(this.isAI2Check_CheckedChanged);
+            // 
             // GameVisuals
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 961);
+            this.Controls.Add(this.isAI2Check);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button3);
@@ -158,6 +171,7 @@ namespace PawnGame
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.CheckBox isAI2Check;
     }
 }
 

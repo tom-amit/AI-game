@@ -8,7 +8,7 @@ namespace PawnGame
     public partial class GameVisuals : Form
     {
         BoardAI board;
-        bool chosen, isAI;
+        bool chosen, isAI1, isAI2;
         Button chosenBtn;
 
         bool inPlacement;
@@ -23,7 +23,8 @@ namespace PawnGame
             InitializeComponent();
             DrawBoard(new Point(100, 100), 70);
             chosen = false;
-            isAI = false;
+            isAI1 = false;
+            isAI2 = false;
             turnLabel.Text = "Turn: p1";
         }
         private void DrawBoard(Point p, int tileSize)
@@ -92,10 +93,7 @@ namespace PawnGame
                         }
                         else
                         {
-                            if (isAI)
-                            {
-                                CompPlay();
-                            }
+                            CompPlay();
                         }
                     }
                     else
@@ -109,14 +107,32 @@ namespace PawnGame
 
         private void CompPlay()
         {
-            if (board.turn == 1)
+            System.Threading.Thread.Sleep(50);
+            if (!inPlacement)
             {
-                board.CompPlay();
-                turnLabel.Text = "Turn: p" + (board.turn + 1).ToString();
-                UpdateBoardVisuals();
-                if (board.CheckIfMatchEnd())
+                if (isAI1 && board.turn == 0)
                 {
-                    MessageBox.Show("PLAYER " + (board.turn + 1).ToString() + " LOSES");
+                    board.CompPlay();
+                    turnLabel.Text = "Turn: p" + (board.turn + 1).ToString();
+                    UpdateBoardVisuals();
+                    if (board.CheckIfMatchEnd())
+                    {
+                        MessageBox.Show("PLAYER " + (board.turn + 1).ToString() + " LOSES");
+                        return;
+                    }
+                    CompPlay();
+                }
+                else if (isAI2 && board.turn == 1)
+                {
+                    board.CompPlay();
+                    turnLabel.Text = "Turn: p" + (board.turn + 1).ToString();
+                    UpdateBoardVisuals();
+                    if (board.CheckIfMatchEnd())
+                    {
+                        MessageBox.Show("PLAYER " + (board.turn + 1).ToString() + " LOSES");
+                        return;
+                    }
+                    CompPlay();
                 }
             }
         }
@@ -153,7 +169,6 @@ namespace PawnGame
             placementChoice = 1;
             label2.Text = "Currently placing black pawns";
         }
-
         private void button4_Click(object sender, EventArgs e)
         {
             UpdateBoardVisuals();
@@ -162,12 +177,23 @@ namespace PawnGame
 
         private void isAICheck_CheckedChanged(object sender, EventArgs e)
         {
-            isAI = ((CheckBox)sender).Checked;
-            if (isAI && chosen)
+            isAI1 = ((CheckBox)sender).Checked;
+            if (isAI1 && chosen && board.turn == 0)
             {
                 chosen = false;
                 chosenBtn.FlatAppearance.BorderSize = 0;
             }
+            CompPlay();
+        }
+        private void isAI2Check_CheckedChanged(object sender, EventArgs e)
+        {
+            isAI2 = ((CheckBox)sender).Checked;
+            if (isAI2 && chosen && board.turn == 1)
+            {
+                chosen = false;
+                chosenBtn.FlatAppearance.BorderSize = 0;
+            }
+            CompPlay();
         }
     }
 }
