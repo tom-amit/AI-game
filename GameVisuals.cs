@@ -106,7 +106,7 @@ namespace PawnGame
 
         private void CompPlay()
         {
-            if (turnLabel.Text == "p2")
+            if (board.turn == 1)
             {
                 board.CompPlay();
                 turnLabel.Text = "Turn: p" + (board.turn + 1).ToString();

@@ -18,7 +18,7 @@ namespace PawnGame
         }
         public double Evaluate()
         {
-            return 5;
+            return 5;// rnd.Next(1,100);
         }
         public int Elapsed(DateTime start) // how much time elapsed on stopper
         {
@@ -54,7 +54,7 @@ namespace PawnGame
                 }
                 depth++;
             } while (Elapsed(start) < timelimit / 8);
-            listScores.Sort();
+            listScores.Sort((num1,num2) => num1.Item2.CompareTo(num2.Item2));
             if (turn == 1)
                 listScores.Reverse();
             bestVal = listScores[0].Item2;
