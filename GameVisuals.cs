@@ -21,7 +21,7 @@ namespace PawnGame
             tiles = new Button[64];
             board = new BoardAI();
             InitializeComponent();
-            DrawBoard(new Point(100, 100), 70);
+            DrawBoard(new Point(590, 590), 70);
             chosen = false;
             isAI1 = false;
             isAI2 = false;
@@ -36,7 +36,7 @@ namespace PawnGame
                     tiles[i * 8 + j] = new Button()
                     {
                         Size = new Size(tileSize, tileSize),
-                        Location = new Point(p.X + tileSize * j, p.Y + tileSize * i),
+                        Location = new Point(p.X - tileSize * j, p.Y - tileSize * i),
                         BackColor = ((i + j) % 2 == 0) ? Color.Black : Color.Gray,
                         TabStop = false,
                         Tag = i * 8 + j,
