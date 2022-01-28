@@ -88,12 +88,33 @@ namespace PawnGame
                     {
                         MessageBox.Show("PLAYER " + (board.turn + 1).ToString() + " LOSES");
                     }
+                    else
+                    {
+                        if (isAI)
+                        {
+                            CompPlay();
+                        }
+                    }
                 }
                 else
                 {
                     chosen = false;
                 }
                 chosenBtn.FlatAppearance.BorderSize = 0;
+            }
+        }
+
+        private void CompPlay()
+        {
+            if (turnLabel.Text == "p2")
+            {
+                board.CompPlay();
+                turnLabel.Text = "Turn: p" + (board.turn + 1).ToString();
+                UpdateBoardVisuals();
+                if (board.CheckIfMatchEnd())
+                {
+                    MessageBox.Show("PLAYER " + (board.turn + 1).ToString() + " LOSES");
+                }
             }
         }
 
@@ -106,6 +127,11 @@ namespace PawnGame
         private void isAICheck_CheckedChanged(object sender, EventArgs e)
         {
             isAI = ((CheckBox)sender).Checked;
+            if(isAI && chosen)
+            {
+                chosen = false;
+                chosenBtn.FlatAppearance.BorderSize = 0;
+            }
         }
     }
 }
