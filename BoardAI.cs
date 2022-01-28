@@ -8,7 +8,7 @@ namespace PawnGame
 {
     class BoardAI: Board
     {
-        public BoardAI()
+        /*public BoardAI()
         {
 
         }
@@ -109,15 +109,7 @@ namespace PawnGame
         }
         bool AdvancedPlayHandler(Move m) // True if WinVal should be returned in AB.
         {
-            if (phase != 0)
-            {
-                if (m.ate != null && playerPieces[3 - player - 1] - 1 <= 2)
-                    return true;
-                if (ChoosePiece(m.src))
-                    if (PlacePiece(m.src, m.dest) == 1)
-                        RemovePiece(m.ate);
-            }
-            return false;
-        }
+            
+        }*/
     }
 }

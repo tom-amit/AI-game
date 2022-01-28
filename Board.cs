@@ -14,14 +14,15 @@ namespace PawnGame
         byte enPassantOpportunityLocation;
         bool enPassantOpportunityExistence;
         public byte turn {get; set;} //0 - white, 1 - black
-        public bool didEnPassant;
+        private Stack<Move> moveHistory;
+
         public Board()
         {
             turn = 0;
-            didEnPassant = false;
             pawns = new BitArray[2];
             pawns[0] = new BitArray(boardSize * boardSize, false);
             pawns[1] = new BitArray(boardSize * boardSize, false);
+            moveHistory = new Stack<Move>();
         }
 
         public void SetupBoard()
@@ -46,14 +47,14 @@ namespace PawnGame
             if(pawns[player][src] && !pawns[player][dest]) //src is a friendly pawn and dest is not with a friendly pawn
             {
                 if ((diff == 8 || (src / 8 == (player == 0 ? 1 : 6) && diff == 16 && !pawns[1 - player][dest + (player == 0 ? -8 : 8)])) && !pawns[1 - player][dest]) //non eating move
-                    return new Move(src, dest, false);
+                    return new Move(src, dest, false, 0, enPassantOpportunityExistence, enPassantOpportunityLocation);
 
                 if ((diff == 7 && src % 8 != (player == 0 ? 0 : 7)) || (diff == 9 && src % 8 != (player == 0 ? 7 : 0))) //is diagonal
                 {
                     if (pawns[1 - player][dest]) //dest is an enemy
-                        return new Move(src, dest, true, dest);
+                        return new Move(src, dest, true, dest, enPassantOpportunityExistence, enPassantOpportunityLocation);
                     if (enPassantOpportunityExistence && dest == enPassantOpportunityLocation) //en passant check
-                        return new Move(src, dest, true, (byte)(dest + (player == 0 ? -8 : 8)));
+                        return new Move(src, dest, true, (byte)(dest + (player == 0 ? -8 : 8)), enPassantOpportunityExistence, enPassantOpportunityLocation);
                 }
             }
 
@@ -112,16 +113,13 @@ namespace PawnGame
                 return false;
             }
 
+            moveHistory.Push(move);
+
             pawns[turn][src] = false;
             pawns[turn][dest] = true;
 
             if (move.didEat)
-            {
                 pawns[1 - turn][move.eatLocation] = false;
-                didEnPassant = move.eatLocation != move.dest;
-            }
-            else
-                didEnPassant = false;
 
             if ((turn == 0 ? dest - src : src - dest) == 16)
                 CreateEnPassantOpportunity((byte)(dest + (turn == 0 ? -8 : 8)));
@@ -129,6 +127,22 @@ namespace PawnGame
                 enPassantOpportunityExistence = false;
 
             turn = (byte)(1 - turn);
+            return true;
+        }
+
+        public bool UnmakeMove()
+        {
+            if (moveHistory.Count == 0)
+                return false;
+
+            Move move = moveHistory.Pop();
+
+            pawns[1 - turn][move.src] = true;
+            pawns[1 - turn][move.dest] = false;
+            if (move.didEat)
+                pawns[turn][move.eatLocation] = true;
+            enPassantOpportunityExistence = move.wasEnPassantOpportunityExistence;
+            enPassantOpportunityLocation = move.wasEnPassantOpportunityLocation;
             return true;
         }
 

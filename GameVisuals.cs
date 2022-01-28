@@ -16,9 +16,11 @@ namespace PawnGame
         Board board;
         bool chosen;
         Button chosenBtn;
-        Button prevPawn;
+        //Button prevPawn;
+        Button[] tiles;
         public GameVisuals()
         {
+            tiles = new Button[64];
             board = new Board();
             board.SetupBoard();
             InitializeComponent();
@@ -30,7 +32,6 @@ namespace PawnGame
         {
             BitArray whitePawns = board.GetWhitePawns(), blackPawns = board.GetBlackPawns();
 
-            Button[] tiles = new Button[64];
             for(int i = 0; i < 8; ++i)
             {
                 for (int j = 0; j < 8; ++j)
@@ -53,6 +54,18 @@ namespace PawnGame
                 }
             }
         }
+        private void UpdateBoardVisuals()
+        {
+            for(int i = 0; i < 64; i++)
+            {
+                if (board.GetWhitePawns()[i]) 
+                    tiles[i].Text = "p1";
+                else if (board.GetBlackPawns()[i])
+                    tiles[i].Text = "p2";
+                else
+                    tiles[i].Text = "";
+            }
+        }
         private void ClickHandler(object sender, System.EventArgs e)
         {
             Button b = (Button)sender;
@@ -66,15 +79,9 @@ namespace PawnGame
             {
                 if(board.Move(Convert.ToByte(chosenBtn.Tag), Convert.ToByte(b.Tag)))
                 {
-                    b.Text = chosenBtn.Text;
-                    turnLabel.Text = "Turn: p" + (board.turn+1).ToString();
-                    chosenBtn.Text = "";
+                    turnLabel.Text = "Turn: p" + (board.turn + 1).ToString();
                     chosen = false;
-
-                    if (board.didEnPassant)
-                        prevPawn.Text = "";
-
-                    prevPawn = b;
+                    UpdateBoardVisuals();
 
                     if (board.CheckIfMatchEnd())
                     {
