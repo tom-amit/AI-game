@@ -54,6 +54,7 @@
     <Compile Include="GameVisuals.Designer.cs">
       <DependentUpon>GameVisuals.cs</DependentUpon>
     </Compile>
+    <Compile Include="Move.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GameVisuals.resx">
