@@ -130,6 +130,30 @@ namespace PawnGame
             return true;
         }
 
+        public bool Move(Move move) //Move with a prechecked move
+        {
+            if (move == null)
+            {
+                return false;
+            }
+
+            moveHistory.Push(move);
+
+            pawns[turn][move.src] = false;
+            pawns[turn][move.dest] = true;
+
+            if (move.didEat)
+                pawns[1 - turn][move.eatLocation] = false;
+
+            if ((turn == 0 ? move.dest - move.src : move.src - move.dest) == 16)
+                CreateEnPassantOpportunity((byte)(move.dest + (turn == 0 ? -8 : 8)));
+            else
+                enPassantOpportunityExistence = false;
+
+            turn = (byte)(1 - turn);
+            return true;
+        }
+
         public bool UnmakeMove()
         {
             if (moveHistory.Count == 0)

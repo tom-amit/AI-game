@@ -109,7 +109,13 @@ namespace PawnGame
         }
         bool AdvancedPlayHandler(Move m) // True if WinVal should be returned in AB.
         {
-            
+            Move(m);
+            if (CheckIfMatchEnd())
+            {
+                UnmakeMove();
+                return true;
+            }
+            return false;
         }
     }
 }
