@@ -53,7 +53,8 @@ namespace PawnGame
                     }
                 }
                 depth++;
-            } while (Elapsed(start) < timelimit / 8);
+            } while (Elapsed(start) < timelimit / 2);
+            Console.WriteLine("Depth reached: {0}", depth);
             listScores.Sort((num1,num2) => num1.Item2.CompareTo(num2.Item2));
             if (turn == 1)
                 listScores.Reverse();
@@ -79,7 +80,7 @@ namespace PawnGame
                 {
                     if (AdvancedPlayHandler(m))
                         return WIN_VAL;
-                    value = AlphaBeta(depth - 1, (byte)(1-playerAB), alpha, beta);
+                    value = GAMMA * AlphaBeta(depth - 1, (byte)(1-playerAB), alpha, beta);
                     UnmakeMove();
                     bestVal = Math.Max(bestVal, value);
                     alpha = Math.Max(alpha, bestVal);
@@ -95,7 +96,7 @@ namespace PawnGame
                 {
                     if (AdvancedPlayHandler(m))
                         return -WIN_VAL;
-                    value = AlphaBeta(depth - 1, (byte)(1 - playerAB), alpha, beta);
+                    value = GAMMA * AlphaBeta(depth - 1, (byte)(1 - playerAB), alpha, beta);
                     UnmakeMove();
                     bestVal = Math.Min(bestVal, value);
                     beta = Math.Min(beta, bestVal);
