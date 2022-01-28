@@ -95,5 +95,11 @@ namespace PawnGame
                 chosenBtn.FlatAppearance.BorderSize = 0;
             }
         }
+
+        private void UndoMoveVisual(object sender, EventArgs e)
+        {
+            board.UnmakeMove();
+            UpdateBoardVisuals();
+        }
     }
 }

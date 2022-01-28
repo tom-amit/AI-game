@@ -30,6 +30,7 @@ namespace PawnGame
         private void InitializeComponent()
         {
             this.turnLabel = new System.Windows.Forms.Label();
+            this.UndoMove = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // turnLabel
@@ -40,11 +41,22 @@ namespace PawnGame
             this.turnLabel.Size = new System.Drawing.Size(0, 13);
             this.turnLabel.TabIndex = 0;
             // 
+            // UndoMove
+            // 
+            this.UndoMove.Location = new System.Drawing.Point(942, 197);
+            this.UndoMove.Name = "UndoMove";
+            this.UndoMove.Size = new System.Drawing.Size(111, 23);
+            this.UndoMove.TabIndex = 1;
+            this.UndoMove.Text = "Undo Last Move";
+            this.UndoMove.UseVisualStyleBackColor = true;
+            this.UndoMove.Click += new System.EventHandler(this.UndoMoveVisual);
+            // 
             // GameVisuals
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 961);
+            this.Controls.Add(this.UndoMove);
             this.Controls.Add(this.turnLabel);
             this.Name = "GameVisuals";
             this.Text = "Form1";
@@ -56,6 +68,7 @@ namespace PawnGame
         #endregion
 
         private System.Windows.Forms.Label turnLabel;
+        private System.Windows.Forms.Button UndoMove;
     }
 }
 

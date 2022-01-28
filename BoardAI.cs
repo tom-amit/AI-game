@@ -8,7 +8,7 @@ namespace PawnGame
 {
     class BoardAI: Board
     {
-        /*public BoardAI()
+        public BoardAI()
         {
 
         }
@@ -45,7 +45,7 @@ namespace PawnGame
                     else
                     {
                         value = AlphaBeta(depth - 1, turn, alpha, beta);
-                        MoveBack();
+                        UnmakeMove();
                         listScores.Add(new Tuple<Move, double>(m, value));
                     }
                 }
@@ -81,7 +81,7 @@ namespace PawnGame
                     if (AdvancedPlayHandler(m))
                         return WIN_VAL;
                     value = AlphaBeta(depth - 1, (byte)(1-playerAB), alpha, beta);
-                    MoveBack();
+                    UnmakeMove();
                     bestVal = Math.Max(bestVal, value);
                     alpha = Math.Max(alpha, bestVal);
                     if (beta <= alpha)
@@ -97,7 +97,7 @@ namespace PawnGame
                     if (AdvancedPlayHandler(m))
                         return -WIN_VAL;
                     value = AlphaBeta(depth - 1, (byte)(1 - playerAB), alpha, beta);
-                    MoveBack();
+                    UnmakeMove();
                     bestVal = Math.Min(bestVal, value);
                     beta = Math.Min(beta, bestVal);
                     if (beta <= alpha)
@@ -110,6 +110,6 @@ namespace PawnGame
         bool AdvancedPlayHandler(Move m) // True if WinVal should be returned in AB.
         {
             
-        }*/
+        }
     }
 }

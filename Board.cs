@@ -143,6 +143,7 @@ namespace PawnGame
                 pawns[turn][move.eatLocation] = true;
             enPassantOpportunityExistence = move.wasEnPassantOpportunityExistence;
             enPassantOpportunityLocation = move.wasEnPassantOpportunityLocation;
+            turn = (byte)(1 - turn);
             return true;
         }
 
