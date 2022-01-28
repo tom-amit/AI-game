@@ -1,9 +1,5 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections;
 using static PawnGame.Const;
 
 namespace PawnGame
@@ -15,7 +11,7 @@ namespace PawnGame
         protected byte[] count;
         byte enPassantOpportunityLocation;
         bool enPassantOpportunityExistence;
-        public byte turn {get; set;} //0 - white, 1 - black
+        public byte turn { get; set; } //0 - white, 1 - black
         private Stack<Move> moveHistory;
 
         public Board()
@@ -32,10 +28,10 @@ namespace PawnGame
 
         public void SetupBoard()
         {
-            for(int i = 0; i < 8; i++)
+            for (int i = 0; i < 8; i++)
             {
                 pawns[0][8 + i] = true;
-                pawns[1][8*6 + i] = true;
+                pawns[1][8 * 6 + i] = true;
             }
             count[0] = 8;
             count[1] = 8;
@@ -57,7 +53,7 @@ namespace PawnGame
         {
             byte diff = (byte)(player == 0 ? dest - src : src - dest);
 
-            if(pawns[player][src] && !pawns[player][dest]) //src is a friendly pawn and dest is not with a friendly pawn
+            if (pawns[player][src] && !pawns[player][dest]) //src is a friendly pawn and dest is not with a friendly pawn
             {
                 if ((diff == 8 || (src / 8 == (player == 0 ? 1 : 6) && diff == 16 && !pawns[1 - player][dest + (player == 0 ? -8 : 8)])) && !pawns[1 - player][dest]) //non eating move
                     return new Move(src, dest, false, 0, enPassantOpportunityExistence, enPassantOpportunityLocation);
@@ -105,7 +101,7 @@ namespace PawnGame
 
         public bool CheckIfPawnAtTheLastRow()
         {
-            for(byte i = 0; i < 8; i++)
+            for (byte i = 0; i < 8; i++)
             {
                 if (pawns[1 - turn][(turn == 0 ? i : 63 - i)])
                     return true;

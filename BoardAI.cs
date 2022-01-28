@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static PawnGame.Const;
 namespace PawnGame
 {
-    class BoardAI: Board
+    class BoardAI : Board
     {
         public BoardAI()
         {
@@ -55,7 +52,7 @@ namespace PawnGame
                 depth++;
             } while (Elapsed(start) < timelimit / 2);
             Console.WriteLine("Depth reached: {0}", depth);
-            listScores.Sort((num1,num2) => num1.Item2.CompareTo(num2.Item2));
+            listScores.Sort((num1, num2) => num1.Item2.CompareTo(num2.Item2));
             if (turn == 1)
                 listScores.Reverse();
             bestVal = listScores[0].Item2;
@@ -80,7 +77,7 @@ namespace PawnGame
                 {
                     if (AdvancedPlayHandler(m))
                         return WIN_VAL;
-                    value = GAMMA * AlphaBeta(depth - 1, (byte)(1-playerAB), alpha, beta);
+                    value = GAMMA * AlphaBeta(depth - 1, (byte)(1 - playerAB), alpha, beta);
                     UnmakeMove();
                     bestVal = Math.Max(bestVal, value);
                     alpha = Math.Max(alpha, bestVal);

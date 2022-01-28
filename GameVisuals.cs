@@ -1,12 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PawnGame
@@ -27,14 +21,14 @@ namespace PawnGame
             tiles = new Button[64];
             board = new BoardAI();
             InitializeComponent();
-            DrawBoard(new Point(100,100), 70);
+            DrawBoard(new Point(100, 100), 70);
             chosen = false;
             isAI = false;
             turnLabel.Text = "Turn: p1";
         }
         private void DrawBoard(Point p, int tileSize)
         {
-            for(int i = 0; i < 8; ++i)
+            for (int i = 0; i < 8; ++i)
             {
                 for (int j = 0; j < 8; ++j)
                 {
@@ -60,7 +54,7 @@ namespace PawnGame
             BitArray whitePawns = board.GetWhitePawns(), blackPawns = board.GetBlackPawns();
             for (int i = 0; i < 64; i++)
             {
-                if (whitePawns[i]) 
+                if (whitePawns[i])
                     tiles[i].Text = "p1";
                 else if (blackPawns[i])
                     tiles[i].Text = "p2";
@@ -169,7 +163,7 @@ namespace PawnGame
         private void isAICheck_CheckedChanged(object sender, EventArgs e)
         {
             isAI = ((CheckBox)sender).Checked;
-            if(isAI && chosen)
+            if (isAI && chosen)
             {
                 chosen = false;
                 chosenBtn.FlatAppearance.BorderSize = 0;
