@@ -39,28 +39,28 @@ namespace PawnGame
             enPassantOpportunityExistence = true;
         }
 
-        public Move CheckMove(byte src, byte dest)
+        public Move CheckMove(byte src, byte dest, byte player)
         {
-            byte diff = (byte)(turn == 0 ? dest - src : src - dest);
+            byte diff = (byte)(player == 0 ? dest - src : src - dest);
 
-            if(pawns[turn][src] && !pawns[turn][dest]) //src is a friendly pawn and dest is not with a friendly pawn
+            if(pawns[player][src] && !pawns[player][dest]) //src is a friendly pawn and dest is not with a friendly pawn
             {
-                if ((diff == 8 || (src / 8 == (turn == 0 ? 1 : 6) && diff == 16 && !pawns[1 - turn][dest + (turn == 0 ? -8 : 8)])) && !pawns[1 - turn][dest]) //non eating move
+                if ((diff == 8 || (src / 8 == (player == 0 ? 1 : 6) && diff == 16 && !pawns[1 - player][dest + (player == 0 ? -8 : 8)])) && !pawns[1 - player][dest]) //non eating move
                     return new Move(src, dest, false);
 
-                if ((diff == 7 && src % 8 != (turn == 0 ? 0 : 7)) || (diff == 9 && src % 8 != (turn == 0 ? 7 : 0))) //is diagonal
+                if ((diff == 7 && src % 8 != (player == 0 ? 0 : 7)) || (diff == 9 && src % 8 != (player == 0 ? 7 : 0))) //is diagonal
                 {
-                    if (pawns[1 - turn][dest]) //dest is an enemy
+                    if (pawns[1 - player][dest]) //dest is an enemy
                         return new Move(src, dest, true, dest);
                     if (enPassantOpportunityExistence && dest == enPassantOpportunityLocation) //en passant check
-                        return new Move(src, dest, true, (byte)(dest + (turn == 0 ? -8 : 8)));
+                        return new Move(src, dest, true, (byte)(dest + (player == 0 ? -8 : 8)));
                 }
             }
 
             return null;
         }
 
-        public List<Move> GetAllPossibleMoves()
+        public List<Move> GetAllPossibleMoves(byte player)
         {
             List<Move> moves = new List<Move>();
             Move move;
@@ -68,7 +68,7 @@ namespace PawnGame
             {
                 for (byte j = 0; j < 64; j++)
                 {
-                    move = CheckMove(i, j);
+                    move = CheckMove(i, j, player);
                     if (move != null)
                         moves.Add(move);
                 }
@@ -76,13 +76,13 @@ namespace PawnGame
             return moves;
         }
 
-        public bool CheckForAnyPossibleMoves()
+        public bool CheckForAnyPossibleMoves(byte player)
         {
             for (byte i = 0; i < 64; i++)
             {
                 for (byte j = 0; j < 64; j++)
                 {
-                    if (CheckMove(i, j) != null)
+                    if (CheckMove(i, j, player) != null)
                         return true;
                 }
             }
@@ -101,12 +101,12 @@ namespace PawnGame
 
         public bool CheckIfMatchEnd()
         {
-            return CheckIfPawnAtTheLastRow() || !CheckForAnyPossibleMoves();
+            return CheckIfPawnAtTheLastRow() || !CheckForAnyPossibleMoves(turn);
         }
 
         public bool Move(byte src, byte dest)
         {
-            Move move = CheckMove(src, dest);
+            Move move = CheckMove(src, dest, turn);
             if (move == null)
             {
                 return false;
