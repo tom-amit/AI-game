@@ -5,6 +5,7 @@ namespace PawnGame
 {
     class BoardAI : Board
     {
+        static DateTime start;
         public BoardAI()
         {
 
@@ -30,16 +31,21 @@ namespace PawnGame
             //MINIMIZER - PLAYER
             double value, bestVal, alpha = double.MinValue, beta = double.MaxValue;
             int index, depth, timelimit;
-            List<Tuple<Move, double>> listScores = new List<Tuple<Move, double>>();
+            List<Tuple<Move, double>> listScores = new List<Tuple<Move, double>>(), prevIterationList;
             List<Move> list = GetAllPossibleMoves(turn);
-            DateTime start = DateTime.UtcNow;
+            start = DateTime.UtcNow;
             depth = 1;
-            timelimit = TIMELIMIT_PLAY;
             do
             {
+                prevIterationList = listScores;
                 listScores.Clear();
                 foreach (Move m in list)
                 {
+                    if (Elapsed(start) >= TIMELIMIT_PLAY * TIMER_ERROR)
+                    {
+                        listScores = prevIterationList;
+                        break;
+                    }
                     if (AdvancedPlayHandler(m))
                         listScores.Add(new Tuple<Move, double>(m, (turn == 1) ? WIN_VAL : -WIN_VAL));
                     else
@@ -50,8 +56,7 @@ namespace PawnGame
                     }
                 }
                 depth++;
-            } while (Elapsed(start) < timelimit / 2);
-            Console.WriteLine("Depth reached: {0}", depth);
+            } while (Elapsed(start) < TIMELIMIT_PLAY * TIMER_ERROR);
             listScores.Sort((num1, num2) => num1.Item2.CompareTo(num2.Item2));
             if (turn == 1)
                 listScores.Reverse();
@@ -59,13 +64,18 @@ namespace PawnGame
             index = 1;
             while (index < listScores.Count && listScores[index].Item2 == bestVal)
                 index++;
-            int r = Const.rnd.Next(index);
-            return listScores[r].Item1;
+            Console.WriteLine("Depth reached: {0}", depth);
+            Console.WriteLine("Time For search: {0}", (double)Elapsed(start)/1000);
+            return listScores[Const.rnd.Next(index)].Item1;
         }
         public double AlphaBeta(int depth, byte playerAB, double alpha, double beta) //Alphabeta
         {
             double value, bestVal;
             List<Move> list = GetAllPossibleMoves(playerAB);
+            if (Elapsed(start) >= TIMELIMIT_PLAY * TIMER_ERROR)
+            {
+                return (playerAB == 1) ? alpha : beta;
+            }
             if (depth == 0)
             {
                 return Evaluate();
