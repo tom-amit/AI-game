@@ -16,7 +16,7 @@ namespace PawnGame
         }
         public double Evaluate()
         {
-            return count[1] - count[0];// rnd.Next(1,100);
+            return MATERIAL_WEIGHT*(count[1] - count[0]) + DISTANCE_WEIGHT*(-distanceSum[1]-distanceSum[0]);
         }
         public int Elapsed(DateTime start) // how much time elapsed on stopper
         {
@@ -25,10 +25,10 @@ namespace PawnGame
             int elapsed = Convert.ToInt32(timeDiff.TotalMilliseconds);
             return elapsed;
         }
-        public Move BestMove() // chose best move using alpha-beta for phase 1/2.
+        public Move BestMove()
         {
-            //MAXIMIZIER - PC
-            //MINIMIZER - PLAYER
+            //MAXIMIZIER - Player1
+            //MINIMIZER - Player0
             double value, bestVal, alpha = double.MinValue, beta = double.MaxValue;
             int index, depth, timelimit;
             List<Tuple<Move, double>> listScores = new List<Tuple<Move, double>>(), prevIterationList;
@@ -117,7 +117,7 @@ namespace PawnGame
         bool AdvancedPlayHandler(Move m) // True if WinVal should be returned in AB.
         {
             Move(m);
-            if (CheckIfMatchEnd())
+            if (turnsCount > 6 && CheckIfMatchEnd())
             {
                 UnmakeMove();
                 return true;

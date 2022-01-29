@@ -8,21 +8,30 @@ namespace PawnGame
     {
         BitArray[] pawns; //0 - white, 1 - black
 
-        protected byte[] count;
+        protected int[] count;
+        protected int[] distanceSum;
+
         byte enPassantOpportunityLocation;
         bool enPassantOpportunityExistence;
+
+        protected int turnsCount;
+
         public byte turn { get; set; } //0 - white, 1 - black
         private Stack<Move> moveHistory;
 
         public Board()
         {
             turn = 0;
+            turnsCount = 0;
             pawns = new BitArray[2];
             pawns[0] = new BitArray(boardSize * boardSize, false);
             pawns[1] = new BitArray(boardSize * boardSize, false);
-            count = new byte[2];
+            count = new int[2];
             count[0] = 0;
             count[1] = 0;
+            distanceSum = new int[2];
+            distanceSum[0] = 0;
+            distanceSum[1] = 0;
             moveHistory = new Stack<Move>();
         }
 
@@ -35,12 +44,15 @@ namespace PawnGame
             }
             count[0] = 8;
             count[1] = 8;
+            distanceSum[0] = 8;
+            distanceSum[1] = 48;
         }
 
         public void SetupAddPiece(byte location, byte player)
         {
             pawns[player][location] = true;
             count[player]++;
+            distanceSum[player] += location / 8;
         }
 
         public void CreateEnPassantOpportunity(byte location)
@@ -74,11 +86,26 @@ namespace PawnGame
         {
             List<Move> moves = new List<Move>();
             Move move;
-            for (byte i = 0; i < 64; i++)
+            for (byte i = 8; i < 56; i++)
             {
-                for (byte j = 0; j < 64; j++)
+                if (pawns[player][i])
                 {
-                    move = CheckMove(i, j, player);
+                    move = CheckMove(i, (byte)(i + (turn == 0 ? 8 : -8)), player);
+                    if (move != null)
+                        moves.Add(move);
+                    if (i + (turn == 0 ? 16 : -16) < 64 && i + (turn == 0 ? 16 : -16) >= 0)
+                    {
+                        move = CheckMove(i, (byte)(i + (turn == 0 ? 16 : -16)), player);
+                        if (move != null)
+                            moves.Add(move);
+                    }
+                    if (i + (turn == 0 ? 9 : -9) < 64 && i + (turn == 0 ? 9 : -9) >= 0)
+                    {
+                        move = CheckMove(i, (byte)(i + (turn == 0 ? 9 : -9)), player);
+                        if (move != null)
+                            moves.Add(move);
+                    }
+                    move = CheckMove(i, (byte)(i + (turn == 0 ? 7 : -7)), player);
                     if (move != null)
                         moves.Add(move);
                 }
@@ -88,11 +115,14 @@ namespace PawnGame
 
         public bool CheckForAnyPossibleMoves(byte player)
         {
-            for (byte i = 0; i < 64; i++)
+            for (byte i = 8; i < 56; i++)
             {
-                for (byte j = 0; j < 64; j++)
+                if (pawns[player][i])
                 {
-                    if (CheckMove(i, j, player) != null)
+                    if (CheckMove(i, (byte)(i + (turn == 0 ? 8 : -8)), player) != null ||
+                        (i + (turn == 0 ? 16 : -16) < 64 && i + (turn == 0 ? 16 : -16) >= 0 && CheckMove(i, (byte)(i + (turn == 0 ? 16 : -16)), player) != null) ||
+                        (i + (turn == 0 ? 9 : -9) < 64 && i + (turn == 0 ? 9 : -9) >= 0 && CheckMove(i, (byte)(i + (turn == 0 ? 9 : -9)), player) != null) ||
+                        CheckMove(i, (byte)(i + (turn == 0 ? 7 : -7)), player) != null)
                         return true;
                 }
             }
@@ -149,6 +179,8 @@ namespace PawnGame
                 enPassantOpportunityExistence = false;
 
             turn = (byte)(1 - turn);
+            turnsCount++;
+            distanceSum[turn] += (move.dest / 8) - (move.src / 8);
             return true;
         }
 
@@ -169,6 +201,8 @@ namespace PawnGame
             enPassantOpportunityExistence = move.wasEnPassantOpportunityExistence;
             enPassantOpportunityLocation = move.wasEnPassantOpportunityLocation;
             turn = (byte)(1 - turn);
+            turnsCount--;
+            distanceSum[turn] -= (move.dest / 8) - (move.src / 8);
             return true;
         }
 
