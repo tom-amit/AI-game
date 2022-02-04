@@ -25,7 +25,7 @@ namespace PawnGame
             chosen = false;
             isAI1 = false;
             isAI2 = false;
-            turnLabel.Text = "Turn: p1";
+            turnLabel.Text = "Turn: P1";
         }
         private void DrawBoard(Point p, int tileSize)
         {
@@ -107,13 +107,13 @@ namespace PawnGame
                 {
                     if (board.Move(Convert.ToByte(chosenBtn.Tag), Convert.ToByte(b.Tag)))
                     {
-                        turnLabel.Text = "Turn: p" + (board.turn + 1).ToString();
+                        turnLabel.Text = "Turn: P" + (board.turn + 1).ToString();
                         chosen = false;
                         UpdateBoardVisuals();
 
                         if (board.CheckIfMatchEnd())
                         {
-                            MessageBox.Show("PLAYER " + (board.turn + 1).ToString() + " LOSES");
+                            MessageBox.Show("PLAYER " + (2 - board.turn).ToString() + " WINS");
                         }
                         else
                         {
@@ -156,11 +156,11 @@ namespace PawnGame
             if (!inPlacement && ((isAI1 && board.turn == 0) || (isAI2 && board.turn == 1)))
             {
                 board.CompPlay();
-                turnLabel.Text = "Turn: Player" + (board.turn + 1).ToString();
+                turnLabel.Text = "Turn: P" + (board.turn + 1).ToString();
                 UpdateBoardVisuals();
                 if (board.CheckIfMatchEnd())
                 {
-                    MessageBox.Show("PLAYER " + (board.turn + 1).ToString() + " LOSES");
+                    MessageBox.Show("PLAYER " + (2 - board.turn).ToString() + " WINS");
                     return;
                 }
                 CompPlay();
@@ -170,6 +170,7 @@ namespace PawnGame
         private void UndoMoveVisual(object sender, EventArgs e)
         {
             board.UnmakeMove();
+            turnLabel.Text = "Turn: P" + (board.turn + 1).ToString();
             UpdateBoardVisuals();
         }
 
