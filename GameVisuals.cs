@@ -50,6 +50,29 @@ namespace PawnGame
                     Controls.Add(tiles[i * 8 + j]);
                 }
             }
+            char letter = 'a';
+            for (int i = 0; i < 8; ++i)
+            {
+                Controls.Add(new Label() 
+                { 
+                    Text = ((char)(letter++)).ToString(), 
+                    Font = new Font(tiles[0].Font.FontFamily, 25), 
+                    Location = new Point(p.X + tileSize * i, p.Y + tileSize),
+                    Size = new Size(tileSize, tileSize),
+                    TextAlign = ContentAlignment.MiddleCenter
+                });
+            }
+            for (int i = 0; i < 8; ++i)
+            {
+                Controls.Add(new Label()
+                {
+                    Text = (i+1).ToString(),
+                    Font = new Font(tiles[0].Font.FontFamily, 25),
+                    Location = new Point(p.X + 8 * tileSize, p.Y - tileSize * i),
+                    Size = new Size(tileSize, tileSize),
+                    TextAlign = ContentAlignment.MiddleCenter
+                });
+            }
         }
         private void UpdateBoardVisuals()
         {
