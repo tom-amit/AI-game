@@ -46,6 +46,7 @@ namespace PawnGame
                     };
                     tiles[i * 8 + j].Click += new EventHandler(ClickHandler);
                     tiles[i * 8 + j].FlatAppearance.BorderSize = 0;
+                    tiles[i * 8 + j].Font = new Font(tiles[i * 8 + j].Font.FontFamily, 19);
                     Controls.Add(tiles[i * 8 + j]);
                 }
             }
@@ -56,9 +57,9 @@ namespace PawnGame
             for (int i = 0; i < 64; i++)
             {
                 if (whitePawns[i])
-                    tiles[i].Text = "p1";
+                    tiles[i].Text = "P1";
                 else if (blackPawns[i])
-                    tiles[i].Text = "p2";
+                    tiles[i].Text = "P2";
                 else
                     tiles[i].Text = "";
             }

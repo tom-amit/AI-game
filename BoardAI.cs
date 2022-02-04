@@ -37,7 +37,7 @@ namespace PawnGame
             depth = 1;
             do
             {
-                prevIterationList = listScores;
+                prevIterationList = new List<Tuple<Move, double>>(listScores);
                 listScores.Clear();
                 foreach (Move m in list)
                 {
@@ -66,6 +66,7 @@ namespace PawnGame
                 index++;
             Console.WriteLine("Depth reached: {0}", depth);
             Console.WriteLine("Time For search: {0}", (double)Elapsed(start)/1000);
+            Console.WriteLine("Achieved value of {0}", bestVal);
             return listScores[Const.rnd.Next(index)].Item1;
         }
         public double AlphaBeta(int depth, byte playerAB, double alpha, double beta) //Alphabeta
