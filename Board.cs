@@ -48,6 +48,19 @@ namespace PawnGame
             distanceSum[1] = 48;
         }
 
+        public void SetupBoard(string setup)
+        {
+            string[] placements = setup.Substring(6).Split(' ');
+            byte color;
+            byte location;
+            foreach(string placement in placements)
+            {
+                color = (byte)((placement[0] == 'W') ? 0 : 1);
+                location = ChessNotationToLocation(placement.Substring(1, 2));
+                SetupAddPiece(location, color);
+            }
+        }
+
         public void SetupAddPiece(byte location, byte player)
         {
             pawns[player][location] = true;

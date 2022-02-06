@@ -206,6 +206,18 @@ namespace PawnGame
             disablePlacement();
         }
 
+        private void button5_Click(object sender, EventArgs e) //connect button
+        {
+            string[] ipStrings = textBox1.Text.Split('.');
+            byte[] ip = new byte[ipStrings.Length];
+            for(int i = 0; i < ipStrings.Length; i++)
+            {
+                ip[i] = (byte)(int.Parse(ipStrings[i]));
+            }
+            Client client = new Client(new System.Net.IPAddress(ip), int.Parse(textBox2.Text));
+            client.PlayMatch();
+        }
+
         private void isAICheck_CheckedChanged(object sender, EventArgs e)
         {
             isAI1 = ((CheckBox)sender).Checked;

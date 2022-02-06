@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Board.cs" />
     <Compile Include="BoardAI.cs" />
+    <Compile Include="Client.cs" />
     <Compile Include="Const.cs" />
     <Compile Include="GameVisuals.cs">
       <SubType>Form</SubType>

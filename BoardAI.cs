@@ -6,9 +6,10 @@ namespace PawnGame
     class BoardAI : Board
     {
         static DateTime start;
+        public int timelimit;
         public BoardAI()
         {
-
+            timelimit = TIMELIMIT_PLAY;
         }
         public void CompPlay()
         {
@@ -30,7 +31,7 @@ namespace PawnGame
             //MAXIMIZIER - Player1
             //MINIMIZER - Player0
             double value, bestVal, alpha = double.MinValue, beta = double.MaxValue;
-            int index, depth, timelimit;
+            int index, depth;
             List<Tuple<Move, double>> listScores = new List<Tuple<Move, double>>(), prevIterationList;
             List<Move> list = GetAllPossibleMoves(turn);
             start = DateTime.UtcNow;
@@ -41,7 +42,7 @@ namespace PawnGame
                 listScores.Clear();
                 foreach (Move m in list)
                 {
-                    if (Elapsed(start) >= TIMELIMIT_PLAY * TIMER_ERROR)
+                    if (Elapsed(start) >= timelimit * TIMER_ERROR)
                     {
                         listScores = prevIterationList;
                         break;
@@ -56,7 +57,7 @@ namespace PawnGame
                     }
                 }
                 depth++;
-            } while (Elapsed(start) < TIMELIMIT_PLAY * TIMER_ERROR);
+            } while (Elapsed(start) < timelimit * TIMER_ERROR);
             listScores.Sort((num1, num2) => num1.Item2.CompareTo(num2.Item2));
             if (turn == 1)
                 listScores.Reverse();
@@ -73,7 +74,7 @@ namespace PawnGame
         {
             double value, bestVal;
             List<Move> list = GetAllPossibleMoves(playerAB);
-            if (Elapsed(start) >= TIMELIMIT_PLAY * TIMER_ERROR)
+            if (Elapsed(start) >= timelimit * TIMER_ERROR)
             {
                 return (playerAB == 1) ? alpha : beta;
             }

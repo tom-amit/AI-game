@@ -17,5 +17,10 @@
             this.wasEnPassantOpportunityExistence = wasEnPassantOpportunityExistence;
             this.wasEnPassantOpportunityLocation = wasEnPassantOpportunityLocation;
         }
+
+        public string GetChessNotation()
+        {
+            return Const.LocationToChessNotation(src) + Const.LocationToChessNotation(dest);
+        }
     }
 }
