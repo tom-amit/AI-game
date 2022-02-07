@@ -9,7 +9,7 @@ namespace PawnGame
         BitArray[] pawns; //0 - white, 1 - black
 
         protected int[] count;
-        protected int[] distanceSum;
+        protected double[] distanceSum;
 
         byte enPassantOpportunityLocation;
         bool enPassantOpportunityExistence;
@@ -29,7 +29,7 @@ namespace PawnGame
             count = new int[2];
             count[0] = 0;
             count[1] = 0;
-            distanceSum = new int[2];
+            distanceSum = new double[2];
             distanceSum[0] = 0;
             distanceSum[1] = 0;
             moveHistory = new Stack<Move>();
@@ -44,8 +44,8 @@ namespace PawnGame
             }
             count[0] = 8;
             count[1] = 8;
-            distanceSum[0] = 8;
-            distanceSum[1] = 48;
+            distanceSum[0] = -20;
+            distanceSum[1] = 20;
         }
 
         public void SetupBoard(string setup)
@@ -65,7 +65,7 @@ namespace PawnGame
         {
             pawns[player][location] = true;
             count[player]++;
-            distanceSum[player] += location / 8;
+            distanceSum[player] += (location / 8)-3.5;
         }
 
         public void CreateEnPassantOpportunity(byte location)
@@ -142,7 +142,7 @@ namespace PawnGame
             return false;
         }
 
-        public bool CheckIfPawnAtTheLastRow()
+        public bool CheckIfPawnAtTheLastRow() //checks whether an ENENY pawn is at his last row
         {
             for (byte i = 0; i < 8; i++)
             {
@@ -184,6 +184,7 @@ namespace PawnGame
             {
                 pawns[1 - turn][move.eatLocation] = false;
                 count[1 - turn]--;
+                distanceSum[1 - turn] -= (move.eatLocation / 8) - 3.5;
             }
 
             if ((turn == 0 ? move.dest - move.src : move.src - move.dest) == 16)
@@ -210,6 +211,7 @@ namespace PawnGame
             {
                 pawns[turn][move.eatLocation] = true;
                 count[turn]++;
+                distanceSum[turn] += (move.eatLocation / 8) - 3.5;
             }
             enPassantOpportunityExistence = move.wasEnPassantOpportunityExistence;
             enPassantOpportunityLocation = move.wasEnPassantOpportunityLocation;
