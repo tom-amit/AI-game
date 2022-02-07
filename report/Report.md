@@ -1,7 +1,9 @@
 # _INSTRUCTIONS TO RUN THE CODE AND EXECUTALBES CAN BE FOUND IN THE [README](../README.md)_
 
 # Report: Pawn Game
-
+Made by: 
+ - Amit Sivan - [@amits6666](https://github.com/amits6666)
+ - Tom Kark - [@tomkark](https://github.com/tomkark)
 ## 1. Data Structures
 
 ### a. Board representation
