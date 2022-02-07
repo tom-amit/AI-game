@@ -1,3 +1,5 @@
+# _INSTRUCTIONS TO RUN THE CODE AND EXECUTALBES CAN BE FOUND IN THE [README](../README.md)_
+
 # Report: Pawn Game
 
 ## 1. Data Structures
@@ -133,7 +135,7 @@ for the project:
   
   
   
-# Example of game:
+# Example of game (AI is P2(Black)):
 ![image](https://user-images.githubusercontent.com/29578065/152830158-45164e00-a9a4-4ffd-ac7b-8119f21b63a6.png)
 ![image](https://user-images.githubusercontent.com/29578065/152830127-8ff233c5-f7e9-49c5-82e8-c0b85f7072d0.png)
 ![image](https://user-images.githubusercontent.com/29578065/152830107-f1caaabd-7c97-4fc7-a667-972700c49560.png)
