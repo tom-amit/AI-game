@@ -11,7 +11,7 @@ namespace PawnGame
         public const double TIMER_ERROR = 0.98;
         public const double MATERIAL_WEIGHT = 1;
         public const double DISTANCE_WEIGHT = 0.1;
-        public const int CLIENT_MAX_MOVE = 350;
+        public const int CLIENT_MAX_MOVE = 30;
         public const int MAX_SEARCH_DEPTH = 25;
 
         static public byte ChessNotationToLocation(string location)
