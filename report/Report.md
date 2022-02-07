@@ -22,7 +22,7 @@ https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e01
 https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e019/Board.cs#L129-L143
 
 ### e. Time allocation
-We calculate a maximum time that is given for every move based on the assumption that a match won't take more than a reasonable amount of rounds that we have predetermined, 
+We calculate a maximum time that is given for every move based on the assumption that a match won't take more than a reasonable number of rounds that we have predetermined, 
 under that assumption, we just divide the time evenly among all the moves.
 That time limit is upheld by the search being an iteratively deepening search, when time is about to end the search to the last completed depth is already ready and is used:
 https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e019/BoardAI.cs#L39-L49
