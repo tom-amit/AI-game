@@ -56,8 +56,7 @@ namespace PawnGame
                         listScores.Add(new Tuple<Move, double>(m, value));
                     }
                 }
-                depth++;
-            } while (Elapsed(start) < timelimit * TIMER_ERROR);
+            } while (Elapsed(start) < timelimit * TIMER_ERROR && ++depth <= MAX_SEARCH_DEPTH);
             listScores.Sort((num1, num2) => num1.Item2.CompareTo(num2.Item2));
             if (turn == 1)
                 listScores.Reverse();
@@ -65,7 +64,7 @@ namespace PawnGame
             index = 1;
             while (index < listScores.Count && listScores[index].Item2 == bestVal)
                 index++;
-            Console.WriteLine("Depth reached: {0}", depth);
+            Console.WriteLine("Depth reached: {0}", depth-1);
             Console.WriteLine("Time For search: {0}", (double)Elapsed(start)/1000);
             Console.WriteLine("Achieved value of {0}", bestVal);
             return listScores[Const.rnd.Next(index)].Item1;
