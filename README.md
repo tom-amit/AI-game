@@ -14,6 +14,8 @@ Upon execution you will get a window with the board seen.
    Be aware that while the AI is thinking you cant interact with the UI so if you turn on both AI's you lose control of the UI until the match ends
   
    You can also press the Undo last move to go back moves.  
+   
+   The AI's moves are directly seen on the board (that is how you see the AI's output).
   
   
  - If you want the AI to connect to a server
