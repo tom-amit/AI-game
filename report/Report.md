@@ -2,17 +2,17 @@
 
 ## 1. Data Structures
 
-### a. Board represenation
+### a. Board representation
 We chose to represent the board as two bitboards of size 64 (8*8), one for each player, representing the location of all of a player's pawns:  
 https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e019/Board.cs#L9-L9
-We also use a byte to represent the location (if it exists) of an en-Passent Opportunity and a boolean to signal whether it even exists in the context:
+We also use a byte to represent the location (if it exists) of an en-Passant Opportunity and a boolean to signal whether it even exists in the context:
 https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e019/Board.cs#L14-L15
 
 ### b. Agent data structures
-The agent essentialy uses a Graph data structure upon which it traverses and only keeps track of the current path to the root and their (all the predecessors) direct children
+The agent essentially uses a Graph data structure upon which it traverses and only keeps track of the current path to the root and their (all the predecessors) direct children
 
 ### c. Move generation
-For each pawn, all possible movements are considered and checked wether they are legal in the current context, moves that are legal are stored and passed on to the caller:
+For each pawn, all possible movements are considered and checked whether they are legal in the current context, moves that are legal are stored and passed on to the caller:
 https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e019/Board.cs#L98-L127
 
 ### d. Terminal move detection
@@ -22,9 +22,9 @@ https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e01
 https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e019/Board.cs#L129-L143
 
 ### e. Time allocation
-We calculate a maximum time that is given for every move based on the assumption that a match wont take more then a reasonable amount of rounds that we have predetermined, 
-under that assumption we jsut divide the time evenly among all the moves.
-That time limit is upheld by the search being an itereativly deepening search, when time is about to end the search to the last completed depth is already ready and is used:
+We calculate a maximum time that is given for every move based on the assumption that a match won't take more than a reasonable amount of rounds that we have predetermined, 
+under that assumption, we just divide the time evenly among all the moves.
+That time limit is upheld by the search being an iteratively deepening search, when time is about to end the search to the last completed depth is already ready and is used:
 https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e019/BoardAI.cs#L39-L49
 https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e019/BoardAI.cs#L73-L80
 
@@ -37,7 +37,7 @@ Our agent does not utilize the rival player's time to think, we simply didn't im
 We used a simple evaluation function that takes into account material differences and how much a player's pawns have pushed forward:
 https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e019/BoardAI.cs#L18-L21
 The material difference is just as you'd expect and the distanceSum is just calculated as the sum of the row numbers minus 4.5 (from -3.5 to 3.5) for all of a player's pawns  
-In addition, on each layer we multiply the scores by a factor GAMMA smaller then one, to encourage the AI to take the fastest way to victory
+In addition, on each layer we multiply the scores by a factor GAMMA smaller than one, to encourage the AI to take the fastest way to victory
 https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e019/BoardAI.cs#L92
 https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e019/BoardAI.cs#L108
 
@@ -45,12 +45,12 @@ https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e01
 We used pawn counts and pawn positions (specifically their row)
 
 ### c. Board features extraction
-The count and distanceSum variables are constanly maintained as moves are made and simulated (as well as when they are undone), 
+The count and distanceSum variables are constantly maintained as moves are made and simulated (as well as when they are undone), 
 so they are alwayes ready to be read with accurate data 
 (can be seen in many places in the [board](https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e019/Board.cs) class)
 
 ### d. Weighting
-The weights are defined as constanst:
+The weights are defined as constants:
 https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e019/Const.cs#L12-L13
 
 ### e. Result range
@@ -63,11 +63,11 @@ The terminal states are when someone wins. A win is evaluated as int.MaxValue fo
 https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e019/Const.cs#L9  
 
 ### g. Testing
-Tested in games against itself, against us (human rivals), and against other teams' AI, we saw the way it acted and and adjusted it accordingly.  
-As well as checking the values it gave in specific situation (for example the starting board).
+Tested in games against itself, against us (human rivals), and against other teams' AI, we saw the way it acted and adjusted it accordingly.  
+As well as checking the values it gave in specific situations (for example the starting board).
 
 ### h. Examples
-Lets take the standard starting positioning, in that situation we expect the evaluation to be 0 to express that no one is advantageous, and it does:  
+Let's take the standard starting positioning, in that situation we expect the evaluation to be 0 to express that no one is advantageous, and it does:  
 `1*(8-8)+0.1*(-20-(-20))=0`
 
 ### i. Used For:
@@ -87,19 +87,19 @@ No.
 ### d. Search Depth
 The resulting search depth is inherently tied to the time given (and of course the CPU of the computer) but even under extreme time limits such as 4 seconds per move, 
 on my computer you could expect a minimum search depth of 7, the depth is capped at 25 so that is the max (usually only reached when the winner becomes obvious),
-and on average across a game with extreme time limit of 4 seconds per move you can expect (on my computer) a depth of roughly 10-11
+and on average across a game with an extreme time limit of 4 seconds per move, you can expect (on my computer) a depth of roughly 10-11
 
 ### e. Game branching factor
 The game's branching factor is roughly 8
 
 ### f. Effective branching factor
-Thought it changes as the game goes on, we found that the average effective branching factor we had was around 6.1
+Though it changes as the game goes on, we found that the average effective branching factor we had was around 6.1
 
 ### g. Pruning
 We used alpha-beta which is backwards pruning.  
-The pruning saves on a lot of unnecessery searches.
+The pruning saves on a lot of unnecessary searches.
 
-### h. Search expension?
+### h. Search expansion?
 No.
 
 ## 4. Learning and optimizations
@@ -107,18 +107,18 @@ No.
 ### a. Learning algorithms and/or optimizations?
 No.
 
-### b. Measuring performence
-1. yes, we tried different Heuristics and tested them as decribed in [_2. g. Testing_](https://github.com/tom-amit/AI-game/blob/main/report/Report.md#g-Testing)
+### b. Measuring performance
+1. yes, we tried different Heuristics and tested them as described in [_2. g. Testing_](https://github.com/tom-amit/AI-game/blob/main/report/Report.md#g-Testing)
 2. Just by observing them and noticing any notable differences in the ways they played
 
 ## 5. General Questions
 
 ### a. The Development Process
-At first we focused on developing the game itself and on developing a nice UI for it, to make it nicer for ourselves since we will have to use it a lot in the development process, after that was done we started laying foundations for the searching algorithm by working on things such as the undo move function and the Move class, then we started working on implementing the search with alpha-beta pruning **without** a real heuristic function, at that point we started working on making a heuristic function, we tried different functions and weights and tested as mentioned above and eventually got to where we are.
+At first, we focused on developing the game itself and on developing a nice UI for it, to make it nicer for ourselves since we will have to use it a lot in the development process, after that was done we started laying foundations for the searching algorithm by working on things such as the undo move function and the Move class, then we started working on implementing the search with alpha-beta pruning **without** a real heuristic function, at that point we started working on making a heuristic function, we tried different functions and weights and tested as mentioned above and eventually got to where we are.
 
 ### b. Conclusions about the game
-First of all, even though it is an extreme simplification of chess, it is still very complex, and the apperant simplicity can make it very hard to know what a good move is even as a human.  
-furthermore, the games branching factor is high enough that you cant search deep enough at the beginning to see the path to guranteed victory outright
+First of all, even though it is an extreme simplification of chess, it is still very complex, and the apparent simplicity can make it very hard to know what a good move is even as a human.  
+furthermore, the game's branching factor is high enough that you cant search deep enough at the beginning to see the path to guaranteed victory outright
 
 ### c. Conclusions from the project
 We probably should have chosen a better fitting language, although c# is easier to develop in, c++ could have given us much better performance without a real change to our project.
