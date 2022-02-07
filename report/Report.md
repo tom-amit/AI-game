@@ -130,3 +130,36 @@ for the way we worked:
 for the project:
  - using a transposition table
  - optimizing move generation
+  
+  
+  
+# Example of game:
+![image](https://user-images.githubusercontent.com/29578065/152830158-45164e00-a9a4-4ffd-ac7b-8119f21b63a6.png)
+![image](https://user-images.githubusercontent.com/29578065/152830127-8ff233c5-f7e9-49c5-82e8-c0b85f7072d0.png)
+![image](https://user-images.githubusercontent.com/29578065/152830107-f1caaabd-7c97-4fc7-a667-972700c49560.png)
+![image](https://user-images.githubusercontent.com/29578065/152830081-e9ae8b37-762e-4016-8bc4-f3b42eff45cf.png)
+![image](https://user-images.githubusercontent.com/29578065/152830055-e5d09562-2a48-4cc7-b47c-676cceca2ae4.png)
+![image](https://user-images.githubusercontent.com/29578065/152830023-49d1b4f3-ffd3-4fd0-ab98-7761921c8b2d.png)
+![image](https://user-images.githubusercontent.com/29578065/152829999-1ac285e9-c156-40e3-ac11-61a35708caab.png)
+![image](https://user-images.githubusercontent.com/29578065/152829979-26628b61-c015-4893-98f9-ff17b5193b5a.png)
+![image](https://user-images.githubusercontent.com/29578065/152829946-dc89bfde-ba96-406e-922e-e3a8f9b7eed0.png)
+![image](https://user-images.githubusercontent.com/29578065/152829913-4bd694ac-0445-4b99-a6eb-0c5b3b42f5ed.png)
+![image](https://user-images.githubusercontent.com/29578065/152829878-a645241b-072c-4230-a818-82450b4fa0d5.png)
+![image](https://user-images.githubusercontent.com/29578065/152829862-745a6b7d-7974-401e-8ad4-96f71b151e72.png)
+![image](https://user-images.githubusercontent.com/29578065/152829839-15c9574f-59ce-4091-b8a1-f1650ef1c77c.png)
+![image](https://user-images.githubusercontent.com/29578065/152829819-2621742a-fbdb-4fcc-8933-4a1558e44a68.png)
+![image](https://user-images.githubusercontent.com/29578065/152829795-c1c9ea6b-cdb0-4d2a-b1e0-7cedd8076c24.png)
+![image](https://user-images.githubusercontent.com/29578065/152829765-5a77c8c3-0465-47e0-a6e3-7c4ef9669064.png)
+![image](https://user-images.githubusercontent.com/29578065/152829728-2b1ca6d1-b57c-4e80-8649-a42e8ce3989f.png)
+![image](https://user-images.githubusercontent.com/29578065/152829670-68c633cf-9c75-406c-a142-be7e05392d00.png)
+![image](https://user-images.githubusercontent.com/29578065/152829627-ebddcc8e-fae1-4436-a2fc-b0f0d7f4409b.png)
+![image](https://user-images.githubusercontent.com/29578065/152829594-c1f58e7d-1c83-459f-b178-51b5108cfa28.png)
+![image](https://user-images.githubusercontent.com/29578065/152829555-114c71c5-b1f3-4fd1-8c00-7bb49c5a921a.png)
+![image](https://user-images.githubusercontent.com/29578065/152829528-ff17cd98-6b6d-4fb6-aafe-1d119e7551a2.png)
+![image](https://user-images.githubusercontent.com/29578065/152829487-fa94ab15-6a86-4ccd-9cf2-4b151fe6d6a9.png)
+![image](https://user-images.githubusercontent.com/29578065/152829445-b1adddf3-8210-4c40-8586-00d8f4b30bd7.png)
+![image](https://user-images.githubusercontent.com/29578065/152829303-dcb51adb-2f23-44e3-82f0-373c126b23db.png)
+![image](https://user-images.githubusercontent.com/29578065/152829274-07cd9e5c-5619-436a-9d44-db8663e9d891.png)
+![image](https://user-images.githubusercontent.com/29578065/152829244-9e8b26a9-3b08-4c7a-b247-6fdc6b18aa06.png)
+![image](https://user-images.githubusercontent.com/29578065/152829215-6c0d499f-d3be-4d31-8dd0-b419334d3e42.png)
+![image](https://user-images.githubusercontent.com/29578065/152829028-ae54c02d-7d68-467c-9036-b6db42088a7a.png)
