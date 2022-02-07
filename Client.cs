@@ -71,16 +71,16 @@ namespace PawnGame
 
             if (!Connect())
                 return;
-            SendResponse("ok");
+            SendResponse("OK");
 
             setup = RecieveResponse();
             board.SetupBoard(setup);
-            SendResponse("ok");
+            SendResponse("OK");
 
 
             time = RecieveResponse();
             board.timelimit = ((int.Parse(time.Substring(5)) * 60 * 1000) / CLIENT_MAX_MOVE);
-            SendResponse("ok");
+            SendResponse("OK");
 
             res = RecieveResponse();
             if(res != "Begin")
