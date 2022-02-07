@@ -29,20 +29,20 @@ https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e01
 https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e019/BoardAI.cs#L73-L80
 
 ### f.
-Our agent does not utilize the rival player's time to think, we simply didn't implement that for lack of time
+Our agent does not utilize the rival player's time to think as we simply didn't implement that for lack of time.
 
 ## 2. Heuristic Function
 
 ### a. Description
-We used a simple evaluation function that takes into account material differences and how much a player's pawns have pushed forward:
+We used a simple evaluation function that takes into account material differences and how many spaces a player's pawns have pushed forward:
 https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e019/BoardAI.cs#L18-L21
-The material difference is just as you'd expect and the distanceSum is just calculated as the sum of the row numbers minus 4.5 (from -3.5 to 3.5) for all of a player's pawns  
-In addition, on each layer we multiply the scores by a factor GAMMA smaller than one, to encourage the AI to take the fastest way to victory
+The material difference is just as you would expect and the distanceSum is just calculated as the sum of the row numbers minus 4.5 (from -3.5 to 3.5) for all of a player's pawns.  
+In addition, on each layer we multiply the scores by a factor GAMMA smaller than one, to encourage the AI to take the fastest route to victory.
 https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e019/BoardAI.cs#L92
 https://github.com/tom-amit/AI-game/blob/41eecefe21b54d6bc3d4785c8d976204f289e019/BoardAI.cs#L108
 
 ### b. Board features used
-We used pawn counts and pawn positions (specifically their row)
+We used pawn counts and pawn positions (specifically their row).
 
 ### c. Board features extraction
 The count and distanceSum variables are constantly maintained as moves are made and simulated (as well as when they are undone), 
@@ -86,8 +86,8 @@ No.
 
 ### d. Search Depth
 The resulting search depth is inherently tied to the time given (and of course the CPU of the computer) but even under extreme time limits such as 4 seconds per move, 
-on my computer you could expect a minimum search depth of 7, the depth is capped at 25 so that is the max (usually only reached when the winner becomes obvious),
-and on average across a game with an extreme time limit of 4 seconds per move, you can expect (on my computer) a depth of roughly 10-11
+on my computer you could expect a minimum search depth of 7. The depth is capped at 25 so that is the max (usually only reached when the winner becomes obvious).
+And on average across a game with an extreme time limit of 4 seconds per move, you can expect (on my computer) a depth of roughly 10-11.
 
 ### e. Game branching factor
 The game's branching factor is roughly 8
@@ -114,11 +114,11 @@ No.
 ## 5. General Questions
 
 ### a. The Development Process
-At first, we focused on developing the game itself and on developing a nice UI for it, to make it nicer for ourselves since we will have to use it a lot in the development process, after that was done we started laying foundations for the searching algorithm by working on things such as the undo move function and the Move class, then we started working on implementing the search with alpha-beta pruning **without** a real heuristic function, at that point we started working on making a heuristic function, we tried different functions and weights and tested as mentioned above and eventually got to where we are.
+At first, we focused on developing the game itself and on developing a suitable UI for it, to make it nicer for ourselves since we will have to use it a lot in the development process. After that was done we started laying foundations for the searching algorithm by working on things such as the undo move function and the Move class. Then we started working on implementing the search with alpha-beta pruning **without** a real heuristic function. At that point we started working on making a heuristic function, we tried different functions and weights and tested as mentioned above and eventually got to where we are.
 
 ### b. Conclusions about the game
 First of all, even though it is an extreme simplification of chess, it is still very complex, and the apparent simplicity can make it very hard to know what a good move is even as a human.  
-furthermore, the game's branching factor is high enough that you cant search deep enough at the beginning to see the path to guaranteed victory outright
+Furthermore, the game's branching factor is high enough that you cannot search deep enough at the beginning to see the path to guaranteed victory outright
 
 ### c. Conclusions from the project
 We probably should have chosen a better fitting language, although c# is easier to develop in, c++ could have given us much better performance without a real change to our project.
